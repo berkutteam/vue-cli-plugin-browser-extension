@@ -2,6 +2,10 @@
 
 Browser extension development plugin for vue-cli 3.x
 
+## NB: This is a fork of https://github.com/adambullmer/vue-cli-plugin-browser-extension
+
+The aim of the fork is to customize plugin in order to use with Chrome Extensions manifest v2 and Vue.js 2
+
 ## What does it do?
 
 This is intended to be a vue-cli@3.x replacement for [Kocal/vue-web-extension `v1`](https://github.com/Kocal/vue-web-extension/tree/v1) (now, [Kocal/vue-web-extension](https://github.com/Kocal/vue-web-extension) is a preset using this plugin).
