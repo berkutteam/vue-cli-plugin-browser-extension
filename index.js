@@ -57,9 +57,15 @@ module.exports = (api, options) => {
   api.chainWebpack((webpackConfig) => {
     const isLegacyBundle = process.env.VUE_CLI_MODERN_MODE && !process.env.VUE_CLI_MODERN_BUILD
     // Ignore rewriting names for background and content scripts
-    webpackConfig.output.filename((file) =>
-      `js/[name]${isLegacyBundle ? `-legacy` : ``}${isProduction && options.filenameHashing && !userScripts.includes(file.chunk.name) ? '.[contenthash:8]' : ''}.js`
-    )
+    // CUSTOM_CHANGE:
+    // copy background.js service worker file to /background.js instead of js/background.js
+    webpackConfig.output.filename((file) => {
+      if(file.chunk.name === "background") {
+        return `[name].js`;
+      } else {
+        return `js/[name]${isLegacyBundle ? `-legacy` : ``}${isProduction && options.filenameHashing && !userScripts.includes(file.chunk.name) ? '.[contenthash:8]' : ''}.js`;
+      }
+    })
     webpackConfig.merge({ entry })
 
     webpackConfig.plugin('copy-manifest').use(CopyWebpackPlugin, [

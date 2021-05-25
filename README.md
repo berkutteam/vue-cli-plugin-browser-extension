@@ -4,7 +4,9 @@ Browser extension development plugin for vue-cli 3.x
 
 ## NB: This is a fork of https://github.com/adambullmer/vue-cli-plugin-browser-extension
 
-The aim of the fork is to customize plugin in order to use with Chrome Extensions manifest v2 and Vue.js 2
+The aim of the fork is to customize plugin in order to use with Chrome Extensions manifest v2 and Vue.js 2.
+
+To track what was changed compared to original version, I added `CUSTOM_CHANGE:` in comment for the changed line.
 
 ## What does it do?
 
