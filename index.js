@@ -92,43 +92,43 @@ module.exports = (api, options) => {
       .loader('imports-loader')
       .options({ browser: '>undefined' })
 
-    // if (isProduction) {
-    //   // Silence warnings of known large files, like images, sourcemaps, and the zip artifact
-    //   webpackConfig.performance.assetFilter((assetFilename) =>
-    //     performanceAssetFilterList.every((filter) => filter(assetFilename))
-    //   )
+    if (isProduction) {
+      // Silence warnings of known large files, like images, sourcemaps, and the zip artifact
+      webpackConfig.performance.assetFilter((assetFilename) =>
+        performanceAssetFilterList.every((filter) => filter(assetFilename))
+      )
 
-    //   if (hasKeyFile) {
-    //     webpackConfig.plugin('copy-signing-key').use(CopyWebpackPlugin, [[{ from: keyFile, to: 'key.pem' }]])
-    //   } else {
-    //     logger.warn('No `key.pem` file detected. This is problematic only if you are publishing an existing extension')
-    //   }
-    // }
+      if (hasKeyFile) {
+        webpackConfig.plugin('copy-signing-key').use(CopyWebpackPlugin, [[{ from: keyFile, to: 'key.pem' }]])
+      } else {
+        logger.warn('No `key.pem` file detected. This is problematic only if you are publishing an existing extension')
+      }
+    }
 
-    // if (isProduction) {
-    //   let filename
-    //   if (pluginOptions.artifactFilename) {
-    //     filename = pluginOptions.artifactFilename({
-    //       name: packageJson.name,
-    //       version: packageJson.version,
-    //       mode: api.service.mode
-    //     })
-    //   } else {
-    //     filename = `${packageJson.name}-v${packageJson.version}-${api.service.mode}.zip`
-    //   }
-    //   webpackConfig.plugin('zip-browser-extension').use(ZipPlugin, [
-    //     {
-    //       path: api.resolve(pluginOptions.artifactsDir || 'artifacts'),
-    //       filename: filename
-    //     }
-    //   ])
-    // }
+    if (isProduction) {
+      let filename
+      if (pluginOptions.artifactFilename) {
+        filename = pluginOptions.artifactFilename({
+          name: packageJson.name,
+          version: packageJson.version,
+          mode: api.service.mode
+        })
+      } else {
+        filename = `${packageJson.name}-v${packageJson.version}-${api.service.mode}.zip`
+      }
+      webpackConfig.plugin('zip-browser-extension').use(ZipPlugin, [
+        {
+          path: api.resolve(pluginOptions.artifactsDir || 'artifacts'),
+          filename: filename
+        }
+      ])
+    }
 
     // configure webpack-extension-reloader for automatic reloading of extension when content and background scripts change (not HMR)
     // enabled only when webpack mode === 'development'
-    // if (!isProduction) {
-    //   webpackConfig.plugin('extension-reloader').use(ExtensionReloader, [{ entries, ...extensionReloaderOptions }])
-    // }
+    if (!isProduction) {
+      webpackConfig.plugin('extension-reloader').use(ExtensionReloader, [{ entries, ...extensionReloaderOptions }])
+    }
 
     if (webpackConfig.plugins.has('copy')) {
       webpackConfig.plugin('copy').tap(args => {
