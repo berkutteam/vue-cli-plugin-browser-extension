@@ -8,6 +8,12 @@ The aim of the fork is to customize plugin in order to use with Chrome Extension
 
 To track what was changed compared to original version, I added `CUSTOM_CHANGE:` in comment for the changed line.
 
+### What was fixed
+
+- Fixed `manifest.content_security_policy` to V3 where it's an object. Also, added valdiation for it.
+- Save `background.js` in root of `dist`, not in `dist/js` as before Chrome 93 it's not allowed to have `background.js` in non root path.
+- Allow to extend (not override) `entries` for `webpack-extension-reloader` in `extensionReloaderOptions` plugin options.
+
 ## What does it do?
 
 This is intended to be a vue-cli@3.x replacement for [Kocal/vue-web-extension `v1`](https://github.com/Kocal/vue-web-extension/tree/v1) (now, [Kocal/vue-web-extension](https://github.com/Kocal/vue-web-extension) is a preset using this plugin).
