@@ -92,18 +92,18 @@ module.exports = (api, options) => {
       .loader('imports-loader')
       .options({ browser: '>undefined' })
 
-    if (isProduction) {
-      // Silence warnings of known large files, like images, sourcemaps, and the zip artifact
-      webpackConfig.performance.assetFilter((assetFilename) =>
-        performanceAssetFilterList.every((filter) => filter(assetFilename))
-      )
+    // if (isProduction) {
+    //   // Silence warnings of known large files, like images, sourcemaps, and the zip artifact
+    //   webpackConfig.performance.assetFilter((assetFilename) =>
+    //     performanceAssetFilterList.every((filter) => filter(assetFilename))
+    //   )
 
-      if (hasKeyFile) {
-        webpackConfig.plugin('copy-signing-key').use(CopyWebpackPlugin, [[{ from: keyFile, to: 'key.pem' }]])
-      } else {
-        logger.warn('No `key.pem` file detected. This is problematic only if you are publishing an existing extension')
-      }
-    }
+    //   if (hasKeyFile) {
+    //     webpackConfig.plugin('copy-signing-key').use(CopyWebpackPlugin, [[{ from: keyFile, to: 'key.pem' }]])
+    //   } else {
+    //     logger.warn('No `key.pem` file detected. This is problematic only if you are publishing an existing extension')
+    //   }
+    // }
 
     if (isProduction) {
       let filename
